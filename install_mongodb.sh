@@ -24,5 +24,5 @@ sudo systemctl enable mongod
 sudo systemctl start mongod
 
 echo "##############################################"
-echo "###  mongodb has been installed & started  ###"
+echo "##   mongodb has been installed & started   ##"
 echo "##############################################"
