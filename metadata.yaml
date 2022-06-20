@@ -1,6 +1,13 @@
 #cloud-config
+disable_root: true
+timezone: Asia/Almaty
+repo_update: true
+repo_upgrade: true
+apt:
+  preserve_sources_list: true
+
 users:
-  - name: appuser
+  - name: yc-user
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
@@ -8,12 +15,13 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDqZt4YB9y66fWf956T2+7g7ZuzVf/nSxa7pieoTMDOPt+MraABHNQwPPPqPGI+8uX6p0tLIEB+2Rq4vQNkpJx4m2gl/F+EfF+lM5rgCrQjFT9RsxhZqY7Jx5ECqHn356ASc19sdy0mNODaOcpefavB+JtynQQORZPTSEYCi97VgX2kBjVQZ6XrUc4jXwKJzWrcD2HJpygRiYzApWrsRCzoiBVbcNWGfbUZ8nEyQEvO45GaP71jqBmTfbGnoomsaJ8vqOJDgaTojDA/Z4GEJvNRp3CaldyVRPlMNUQSEI+BZAu5uxr0ZJFRpIVWFQqIe7MjXZPHz3wDYJJ8YcYrxtl9 appuser
 
 runcmd:
- - wget -q https://github.com/Otus-DevOps-2022-02/Yerlan-ops_infra/blob/cloud-testapp/install_mongodb.sh
- - wget -q https://github.com/Otus-DevOps-2022-02/Yerlan-ops_infra/blob/cloud-testapp/install_ruby.sh
- - wget -q https://github.com/Otus-DevOps-2022-02/Yerlan-ops_infra/blob/cloud-testapp/deploy.sh
- - chmod 770 install_ruby
- - chmod 770 install_mongodb
- - chmod 770 deploy.sh
- - install_ruby.sh
- - install_mongodb.sh
- - deploy.sh
+ - cd ~
+ - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_mongodb.sh
+ - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_ruby.sh
+ - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/deploy.sh
+ - sudo chmod +x install_ruby.sh
+ - sudo chmod +x install_mongodb.sh
+ - sudo chmod +x deploy.sh
+ - sh install_ruby.sh
+ - sh install_mongodb.sh
+ - sh deploy.sh

@@ -11,9 +11,9 @@ echo "##############################################"
 echo "######       INSTALLING mongodb...      ######"
 echo "##############################################"
 
-sudo apt update
-sudo apt upgrade
 sudo apt-get install -y mongodb-org
+sudo apt-get update
+sudo apt-get upgrade
 
 echo "##############################################"
 echo "######        STARTING mongodb...       ######"
@@ -22,6 +22,7 @@ sleep 4
 
 sudo systemctl enable mongod
 sudo systemctl start mongod
+
 
 echo "##############################################"
 echo "##   mongodb has been installed & started   ##"
