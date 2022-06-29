@@ -1,8 +1,7 @@
 #!/bin/bash
 sudo apt-get update
-sudo apt install -y ruby-full ruby-bundler build-essential
-sudo apt-get upgrade
+sudo apt-get install -y ruby-full ruby-bundler build-essential
 
 echo "##############################################"
-echo "###       ruby has been installed          ###"
+echo "###  ruby has been successfully installed  ###"
 echo "##############################################"
