@@ -31,3 +31,5 @@ runcmd:
  - sudo chmod +x install_mongodb.sh
  - sudo chmod +x deploy.sh
  - sudo sh install_ruby.sh
+ - sudo sh install_mongodb.sh
+ - sudo sh deploy.sh
