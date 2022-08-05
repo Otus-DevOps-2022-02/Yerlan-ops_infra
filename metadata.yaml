@@ -27,9 +27,12 @@ runcmd:
  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_ruby.sh
  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_mongodb.sh
  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/deploy.sh
+ - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/run_scripts.sh
  - sudo chmod +x install_ruby.sh
  - sudo chmod +x install_mongodb.sh
  - sudo chmod +x deploy.sh
- - sudo sh install_ruby.sh
- - sudo sh install_mongodb.sh
- - sudo sh deploy.sh
+ - sudo chmod +x run_scripts.sh
+ - sh run_scripts.sh
+# - sudo sh install_ruby.sh
+# - sudo sh install_mongodb.sh
+# - sudo sh deploy.sh
