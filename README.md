@@ -40,7 +40,7 @@ someinternalhost_IP = 10.128.0.35
 Задание №6.
 
 Сервер, созданный при помощи автоматического скрипта:
-testapp_IP = 51.250.64.58
+testapp_IP = 62.84.118.240
 testapp_port = 9292
 
 Была произведена предварительная установка следующих пакетов: curl для тестирования подключения к удаленному серверу
@@ -76,7 +76,7 @@ fi
 	sh connect_script.sh
 
 команды скрипта deploy.sh были выполнены в формате sudo runuser -l yc-user -c 'some command' для того чтобы gem'ы и другие пакеты rail/puma не ставились с правами root, а с правами аккаунта yc-user на тот случай, если потребовался бы их перезапуск, чтобы было с ними удобнее обращаться без команды sudo, а также для безопасности запускаемых веб-приложений и скриптов.
-Отмечу, что мной также был добавлен скрипт connect_script.sh (строка выше), который при заранее заданном имени хоста reddit-app2 извлекал в локальную переменную публичный ip-адрес данного сервера, затем после ожидания длиной примерно в полторы минуты командой sleep (чтобы дождаться гарантированного завершения установки пакетов) с помощью удаленного выполнения команды "ps -aux | ..." извлекался номер порта с его присвоением другой локальной переменной, после чего само подключение тестировалось с помощью конструкции: "curl yc-user@$ipaddress:$portnumber"
+Запуск всех трех (install_ruby.sh mongodb.sh и deploy.sh) скриптов было решено произвести одним объединяющим скриптом run_scripts: "sh ./install_ruby.sh && sh ./install_mongodb.sh && sh ./deploy.sh", чтобы обеспечить возможность контроля последовательности и мониторинг азавершения всех скриптов под одним Process ID, для дальнейшей передачи исполнения установки скрипту, тестирующему подключение. Этот скрипт под названием connect_script.sh (строка выше), при заранее заданном имени хоста reddit-app2 извлекал в локальную переменную публичный ip-адрес данного сервера, затем после ожидания длиной примерно в полторы минуты командой sleep (чтобы дождаться гарантированного завершения установки пакетов) с помощью удаленного выполнения команды "ps -aux | ..." извлекался номер порта с его присвоением другой локальной переменной, после чего само подключение тестировалось с помощью конструкции: "curl yc-user@$ipaddress:$portnumber". Также. чтобы найденный номер порта значением 9292 не был обнулен при выходе из подцикла, значение порта было автоматически вписано в файл foo.txt, откуда и было извлечено главным процессом скрипта connect_script
 Дополнительный файл connect_script.sh приложен.
 
 Файл metadata.yaml подхваченный скриптом startupserver.sh:
@@ -97,21 +97,21 @@ fi
 		  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDqZt4YB9y66fWf956T2+7g7ZuzVf/nSxa7pieoTMDOPt+MraABHNQwPPPqPGI+8uX6p0tLIEB+2Rq4vQNkpJx4m2gl/F+EfF+lM5rgCrQjFT9RsxhZqY7Jx5ECqHn356ASc19sdy0mNODaOcpefavB+JtynQQORZPTSEYCi97VgX2kBjVQZ6XrUc4jXwKJzWrcD2HJpygRiYzApWrsRCzoiBVbcNWGfbUZ8nEyQEvO45GaP71jqBmTfbGnoomsaJ8vqOJDgaTojDA/Z4GEJvNRp3CaldyVRPlMNUQSEI+BZAu5uxr0ZJFRpIVWFQqIe7MjXZPHz3wDYJJ8YcYrxtl9 appuser
 
 	runcmd:
-	 - cd ~
-	 - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_mongodb.sh
-	 - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_ruby.sh
-	 - wget https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/deploy.sh
-	 - sudo chmod +x install_ruby.sh
-	 - sudo chmod +x install_mongodb.sh
-	 - sudo chmod +x deploy.sh
-	 - sh install_ruby.sh
-	 - sh install_mongodb.sh
-	 - sh deploy.sh
+	  - cd /home/yc-user
+	  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_ruby.sh
+	  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/install_mongodb.sh
+	  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/deploy.sh
+	  - wget -q https://raw.githubusercontent.com/Otus-DevOps-2022-02/Yerlan-ops_infra/cloud-testapp/run_scripts.sh
+	  - sudo chmod +x install_ruby.sh
+	  - sudo chmod +x install_mongodb.sh
+	  - sudo chmod +x deploy.sh
+	  - sudo chmod +x run_scripts.sh
+	  - sh run_scripts.sh
 
 
-Таким образом имеем следующие конфигурации для тестирования на доступность:
+Таким образом имеем следующую конфигурацию для тестирования на доступность:
 
 Сервер, созданный при помощи автоматического скрипта:
-Имя хоста: reddit-ip4
-testapp_IP = 51.250.64.58
+Имя хоста: reddit-ip2
+testapp_IP = 62.84.118.240
 testapp_port = 9292

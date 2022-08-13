@@ -33,6 +33,3 @@ runcmd:
  - sudo chmod +x deploy.sh
  - sudo chmod +x run_scripts.sh
  - sh run_scripts.sh
-# - sudo sh install_ruby.sh
-# - sudo sh install_mongodb.sh
-# - sudo sh deploy.sh
